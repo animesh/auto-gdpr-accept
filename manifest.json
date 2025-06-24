@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Auto Accept GDPR Cookies",
+  "version": "1.0",
+  "description": "Automatically accepts GDPR cookie banners on websites.",
+  "permissions": ["scripting", "activeTab"],
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "icon.png",
+    "32": "icon.png",
+    "48": "icon.png"
+  }
+} 
