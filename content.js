@@ -47,6 +47,25 @@ function autoRejectLinkedInCookies() {
   return false;
 }
 
+function autoRejectYouTubeCookies() {
+  // Try to find and click the reject/essential cookies button on YouTube
+  const rejectTexts = [
+    'reject', 'decline', 'only use necessary', 'use necessary cookies only', 'refuse', 'refuser', 'essential', 'manage options', 'do not consent', 'disable', 'avslå', 'avvis', 'bare nødvendige',
+    // Hindi
+    'अस्वीकार', 'इनकार', 'सिर्फ आवश्यक', 'केवल आवश्यक', 'जरूरी कुकीज़', 'जरूरी कुकीज', 'जरूरी', 'इनकार करें', 'स्वीकार नहीं', 'मना करें', 'मना करना', 'डिक्लाइन', 'रिजेक्ट', 'डिनाई', 'इनकार करना'
+  ];
+  const buttons = Array.from(document.querySelectorAll('button, [role="button"]'));
+  for (const btn of buttons) {
+    const text = (btn.innerText || btn.value || '').toLowerCase();
+    if (rejectTexts.some(t => text.includes(t))) {
+      btn.click();
+      console.log('[CookieBannerHider] Clicked YouTube reject/essential cookies button:', btn);
+      return true;
+    }
+  }
+  return false;
+}
+
 function debouncedHandleCookies() {
   if (mutationCount > MUTATION_LIMIT) {
     if (observer) observer.disconnect();
@@ -80,7 +99,35 @@ function hideCookieBanners(root) {
     "tilpass cookies",
     "cookieinnstillinger",
     // Generic
-    "manage options"
+    "manage options",
+    // Hindi
+    "अस्वीकार",
+    "इनकार",
+    "सिर्फ आवश्यक",
+    "केवल आवश्यक",
+    "जरूरी कुकीज़",
+    "जरूरी कुकीज",
+    "जरूरी",
+    "इनकार करें",
+    "स्वीकार नहीं",
+    "मना करें",
+    "मना करना",
+    "डिक्लाइन",
+    "रिजेक्ट",
+    "डिनाई",
+    "इनकार करना",
+    // Common banner actions
+    "बंद करें",
+    "खोलें",
+    // Notification banners (Hindi)
+    "allow",
+    "not now",
+    "नोटिफिकेशन",
+    "सब्सक्राइब करें",
+    "ताज़ा खबरों के लिए",
+    "बटन दबाकर",
+    "अनुमति दें",
+    "अभी नहीं"
   ];
   function isBannerLike(el) {
     const style = window.getComputedStyle(el);
@@ -108,7 +155,20 @@ function hideCookieBanners(root) {
   const acceptRejectPhrases = [
     ['accept', 'reject'],
     ['godta', 'avslå'],
-    ['godta', 'avvis']
+    ['godta', 'avvis'],
+    // Hindi
+    ['स्वीकार', 'अस्वीकार'],
+    ['स्वीकार', 'इनकार'],
+    ['स्वीकार', 'मना करें'],
+    ['स्वीकार', 'डिक्लाइन'],
+    ['स्वीकार', 'रिजेक्ट'],
+    // Banner close/open
+    ['बंद करें', 'खोलें'],
+    // Notification banners (Hindi)
+    ["allow", "not now"],
+    ["अनुमति दें", "अभी नहीं"],
+    ["allow", "deny"],
+    ["allow", "block"]
   ];
   all.forEach(el => {
     if (
@@ -186,6 +246,11 @@ function handleCookies() {
   // Special case: LinkedIn auto-reject
   if (/linkedin\.com/i.test(window.location.href)) {
     autoRejectLinkedInCookies();
+    return;
+  }
+  // Special case: YouTube auto-reject
+  if (/youtube\.com/i.test(window.location.href)) {
+    autoRejectYouTubeCookies();
     return;
   }
   if (isExcludedSite()) return;

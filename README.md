@@ -1,11 +1,11 @@
-# Auto Accept GDPR / Reject Cookie Banners Chrome Extension
+# Auto Hide Cookie/Banners Browser Extension
 
-This Chrome extension automatically hides cookie banners and modals that contain 'reject', 'decline', 'deny', 'do not consent', and similar words (including Norwegian equivalents). It does not click any buttons or accept cookies; it simply removes the visual clutter from your browsing experience.
+This Browser extension automatically hides cookie banners and modals that contain 'reject', 'decline', 'deny', 'do not consent', and similar words (including Norwegian equivalents). It does not click any buttons or accept cookies; it simply removes the visual clutter from your browsing experience.
 
 ## Installation
 
 1. Download or clone this repository.
-2. Open Chrome and go to `chrome://extensions/`.
+2. Open Browser and go to extension settings like `edge://extensions/` for Edge `chrome://extensions/` for Chrome.
 3. Enable **Developer mode** (top right).
 4. Click **Load unpacked** and select the `auto-gdpr-accept` folder.
 
@@ -23,4 +23,4 @@ If such a phrase is found, the element is hidden from view. The extension does n
 - The extension does not click any buttons or submit any forms; it only hides banners and modals containing reject/deny phrases.
 
 ## Uninstall
-- Go to `chrome://extensions/` and remove the extension. 
+- Go to extension settings like `chrome://extensions/` and remove the extension. 
