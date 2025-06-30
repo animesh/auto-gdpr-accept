@@ -6,6 +6,7 @@ const MUTATION_LIMIT = 50; // Max times to run in a session
 const EXCLUDED_SITES = [
   /linkedin\.com\/login/i,
   /accounts\.google\.com/i,
+  /mail\.google\.com/i,
   /twitter\.com\/login/i,
   /github\.com\/login/i
 ];
